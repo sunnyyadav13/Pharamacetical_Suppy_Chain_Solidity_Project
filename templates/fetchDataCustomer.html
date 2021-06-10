@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script src="smartcontract.js"></script>
+    <script src="../node_modules/web3/dist/web3.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>getDetails</title>
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            /* font-family: 'Baloo Da 2', cursive; */
+            /* font-family: 'Baloo Thambi 2', cursive;
+      font-family: 'Roboto', sans-serif; */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .paragraph {
+            font-size: .9rem;
+            font-weight: 400;
+            color: #606060;
+            font-family: 'Baloo Da 2', cursive;
+        }
+
+        i {
+            color: white;
+            background: transparent;
+            padding: 5px;
+        }
+
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+            margin-bottom: 0px !important;
+        }
+
+        body {
+            margin-bottom: 100px;
+        }
+        h3::after {
+      content: "";
+      display: block;
+      margin: 10px auto 20px;
+      background: #ffc107;
+      height: 3px;
+      width: 170px;
+    }
+    </style>
+
+</head>
+
+<body>
+
+
+    
+
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <a class="navbar-brand font-weight-bold text-warning ml-3" href="#" style="font-family: baloo bhai;">Supply
+            Chain</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse  text-center" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item active">
+                    <a class="nav-link font-weight-bold" href="#" style="font-family: baloo bhai;">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-bold" href="#" style="font-family: baloo bhai;">About</a>
+                </li>
+                <div class="container ">
+                    <div class="icon  ">
+                        <a  target="_blank" href="https://github.com/"><i class="fa  fa-2x  fa-github"></i></a>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+ 
+    <div class="container card-header"  style="margin-top: 3%;">
+        <h1 style="text-align: center; font-family: 'Baloo Da 2', cursive;">Get Details for your Pharma Product
+        </h1>
+        <hr>
+        <p style="text-align: center;">Prove the authenticity of medicine using the Ethereum blockchain.</p>
+    </div>
+
+
+
+
+    <!-- =========== Verify Form ============= -->
+
+    <div class="container my-5"  style="font-family: 'Baloo Da 2', cursive; width: 25rem;">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4><strong>Verify Details</strong></h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputID1">Product id:</label>
+                        <input type="text" class="form-control" id="id" aria-describedby="IDHelp"
+                            placeholder="type product Type here...">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-success" onclick="UserVerified()">Veirfy id</a>
+            </div>
+        </div>
+    </div>
+
+   
+
+          <!-- ============ Manufacturer Table ============ -->
+
+    <table class="table mx-auto mt-5" style="width: 50rem;">
+        <h3 class="text-center">Manufacturer Details</h3>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Category</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Manufacturer Date</th>
+            <th scope="col">Manufacturer Name</th>
+            <th scope="col">Manufacturer E-mail</th>
+            <th scope="col">Manufacture Contact-No.</th>
+        </tr>
+        </thead>
+        <tbody id="manuTableBody">
+        </tbody>
+      </table>
+      <hr>
+
+          <!-- ============ Distributer Table ============ -->
+
+    <table class="table mx-auto mt-5" style="width: 50rem;">
+        <h3 class="text-center mt-2">Distributor Details</h3>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Product Price Purchased by distributer</th>
+            <th scope="col">Product Date of Purchase by distributer</th>
+            <th scope="col">Distributer Name</th>
+            <th scope="col">Distributer E-mail</th>
+            <th scope="col">Distributer Contact no.</th>
+        </tr>
+        </thead>
+        <tbody id="disTableBody">
+         
+        </tbody>
+      </table>
+      <hr>
+
+          <!-- ============ Retailer Table ============ -->
+
+    <table class="table mx-auto mt-5" style="width: 50rem;">
+        <h3 class="text-center mt-2">Retailer Details</h3>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Product Price Purchased by Retailer</th>
+                <th scope="col">Product Date of Purchase by Retailer</th>
+                <th scope="col">Retailer Name</th>
+                <th scope="col">Retailer E-mail</th>
+                <th scope="col">Retailer Contact no.</th>
+            </tr>
+        </thead>
+        <tbody id="retaTableBody">
+         
+        </tbody>
+      </table>
+      <hr>
+
+       <!-- ============ Customer Table ============ -->
+
+    <table class="table mx-auto mt-5" style="width: 50rem;">
+        <h3 class="text-center mt-2">Customer Details</h3>
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Product Price Purchased by Customer</th>
+                <th scope="col">Product Date of Purchase by Customer</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Customer E-mail</th>
+                <th scope="col">Customer Contact no.</th>
+            </tr>
+        </thead>
+
+        <tbody id="cusTableBody">
+         
+        </tbody>
+      </table>
+      <hr>
+        
+        <!-- ================= Footer ================== -->
+
+        <footer class="page-footer font-small mdb-color bg-dark">
+            <div class="icon">
+                <h6 class="font-weight-bold text-warning mt-2">Developed with <i class="fa fa-heart" aria-hidden="true"></i> by Team Creedorian<a target="_blank"
+                        href="https://github.com/"><i class="fa fa-github"></i></a></h6>
+
+            </div>
+        </footer>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+      
+            
+
+</body>
+<script>
+    if(typeof web3!='undefined'){
+            web3=new Web3(web3.currentProvider);
+            }else{
+            web3=new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            }
+            web3.eth.defaultAccount=web3.eth.accounts[0];
+            var bc=web3.eth.contract(ABI);
+            var c=bc.at(address);
+    function UserVerified(){
+        var id= document.getElementById("id").value;
+        console.log(id);
+        var manudetails=c.getmanufacturedetails(id,{from:web3.eth.accounts[0],gas:1000000});
+        console.log(manudetails);
+        console.log(manudetails[3].c[0])
+        var distdetails=c.getdistributordetails(id,{from:web3.eth.accounts[0],gas:1000000});
+        console.log(distdetails);
+        var retdetails=c.getretailerdetails(id,{from:web3.eth.accounts[0],gas:1000000});
+        console.log(retdetails);
+        var custdetails=c.getcustomerdetails(id,{from:web3.eth.accounts[0],gas:1000000});
+        console.log(custdetails);
+                  
+        
+            let html2 = `
+                    <tr>
+                        <td>${manudetails[1]}</td>
+                        <td>${manudetails[2]}</td>
+                        <td>${manudetails[3].c[0]}</td>
+                        <td>${manudetails[4]}</td>
+                        <td>${manudetails[5]}</td>
+                        <td>${manudetails[6]}</td>
+                        <td>${manudetails[7]}</td>
+                    </tr>
+                `;
+            let html3 = `
+                    <tr>
+                        <td>${distdetails[1].c[0]}</td>
+                        <td>${distdetails[2]}</td>
+                        <td>${distdetails[3]}</td>
+                        <td>${distdetails[4]}</td>
+                        <td>${distdetails[5]}</td>
+                    </tr>
+                `;
+                let html4 = `
+                    <tr>
+                        <td>${retdetails[1].c[0]}</td>
+                        <td>${retdetails[2]}</td>
+                        <td>${retdetails[3]}</td>
+                        <td>${retdetails[4]}</td>
+                        <td>${retdetails[5]}</td>
+                    </tr>
+                `;
+                let html5 = `
+                    <tr>
+                        <td>${custdetails[4].c[0]}</td>
+                        <td>${custdetails[5]}</td>
+                        <td>${custdetails[0]}</td>
+                        <td>${custdetails[2]}</td>
+                        <td>${custdetails[1]}</td>
+                    </tr>
+                `;
+                $( "#manuTableBody" ).append( $(html2) );
+                $( "#disTableBody" ).append( $(html3) );
+                $( "#retaTableBody" ).append( $(html4) );
+                $( "#cusTableBody" ).append( $(html5) );
+    }
+</script>
+</html>
